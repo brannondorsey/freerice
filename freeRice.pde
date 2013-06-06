@@ -6,52 +6,75 @@ import java.awt.MouseInfo;
 import java.awt.PointerInfo;
 import java.awt.Point;
 
-
 int total;
-int step;
+int ansNum = 1; 
+int pageLoadTime = 2000;
+String[] totalData;
 Robot robot;
+
 
 void setup(){
  size(100, 100);
- frameRate(1); //0.3
- String[] totalData = loadStrings("total.txt");
- total = int(totalData[0]);
+ frameRate(0.6); //0.3
+ pathToDataFolder = savePath("data");
+ totalData = loadStrings(pathToDataFolder+"total.txt");
+ total = int(totalData[1]);
  
  try{
    robot = new Robot();
  }catch(AWTException e){
    e.printStackTrace();
  }
- robot.setAutoDelay(10); //set short delay
- robot.mouseMove(1413,9); //move to spotlight
- click();
- type("safari"); 
- typeEnter();
- robot.delay(1500);
- robot.mouseMove(248, 56); //move to URL bar
- click(); click(); click();
- type("freerice.com");
+ getToFreeRiceStart();
 }
 
 void draw(){
 //  Point loc = MouseInfo.getPointerInfo().getLocation();
 //  println(loc.x+", "+loc.y);
+  int answerPosXValue = 425;
+  int answerPosYValue = 415;
+  
+  ansNum = ceil(random(4)); //randomly chooses one of four images
+  switch(ansNum){
+    case 1:
+      answerPosYValue = 415; //answer 1
+      break;
+    case 2:
+      answerPosYValue = 459; //answer 2
+      break;
+    case 3:
+      answerPosYValue = 495; //answer 3
+      break;
+    case 4:
+      answerPosYValue = 534; //answer 4
+      break;
+  }
+  robot.mouseMove(answerPosXValue, answerPosYValue); //move to answer
+  click();
+  if(ansNum == 4){
+    total+=10;
+    String[] data = {totalData[0], ""+total};
+    saveStrings(pathToDataFolder+"total.txt", data);
+  }
+}
 
-//  switch(step){
-//    case 1:
-//      robot.mouseMove(1413,9);
-//      mousePress();
-//      break;
-//      
-//    case 2:
-//      type("safari");
-//      break;
-//     
-//    case 3:
-//      typeEnter();
-//      break;
-//  }
-//  step++;
+void getToFreeRiceStart(){
+ robot.setAutoDelay(10); //set short delay
+ robot.mouseMove(1413,9); //move to spotlight
+ click();
+ type("safari"); 
+ typeEnter();
+ robot.delay(pageLoadTime);
+ robot.mouseMove(248, 56); //move to URL bar
+ click(); click(); click();
+ type("freerice.com");
+ typeEnter();
+ robot.delay(pageLoadTime);
+ robot.mouseMove(139, 225); //move off of popup add
+ click();
+ robot.mouseMove(602, 375); //select first answer on homepage
+ click();
+ robot.setAutoDelay(1); //remove auto delay 
 }
 
 void type(String needsTyped){
@@ -86,7 +109,14 @@ void type(String needsTyped){
     robot.keyRelease(KeyEvent.VK_C);
     robot.keyPress(KeyEvent.VK_E);
     robot.keyRelease(KeyEvent.VK_E);
- 
+    robot.keyPress(KeyEvent.VK_PERIOD);
+    robot.keyRelease(KeyEvent.VK_PERIOD);
+    robot.keyPress(KeyEvent.VK_C);
+    robot.keyRelease(KeyEvent.VK_C);
+    robot.keyPress(KeyEvent.VK_O);
+    robot.keyRelease(KeyEvent.VK_O);
+    robot.keyPress(KeyEvent.VK_M);
+    robot.keyRelease(KeyEvent.VK_M); 
   }
 //  for(int i = 0; i < needsTyped.length(); i++){
 //    char currentChar = needsTyped.charAt(i);
