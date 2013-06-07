@@ -10,6 +10,7 @@ int total;
 int ansNum = 1; 
 int pageLoadTime = 2000;
 String[] totalData;
+String pathToDataFolder;
 Robot robot;
 
 
@@ -17,7 +18,7 @@ void setup(){
  size(100, 100);
  frameRate(0.6); //0.3
  pathToDataFolder = savePath("data");
- totalData = loadStrings(pathToDataFolder+"total.txt");
+ totalData = loadStrings(pathToDataFolder+"/total.txt");
  total = int(totalData[1]);
  
  try{
@@ -54,7 +55,7 @@ void draw(){
   if(ansNum == 4){
     total+=10;
     String[] data = {totalData[0], ""+total};
-    saveStrings(pathToDataFolder+"total.txt", data);
+    saveStrings(pathToDataFolder+"/total.txt", data);
   }
 }
 
