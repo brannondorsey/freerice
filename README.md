@@ -11,7 +11,8 @@ with any computer. After downloading the repo contents follow these steps to con
 donate rice when you're not using your computer.
 
     1. Make sure that Safari is completely closed and there are no important unsaved documents
-    open on your machine (just to be safe).
+    open on your machine (just to be safe). Only use freeRice when you are not going to be using your
+    computer for something else.
     2. Plug your computer into a power source so that your battery doesn't die while your're donating rice. 
     3. Open processing and run the freeRice.pde sketch.
     4. Once finished donating rice, press COMMAND+ALT+ESC to bring up the force quit menu and force quit
